@@ -19,7 +19,7 @@ class Employe extends Migration
             $table->index('company_id');
             $table->foreign('company_id')->references('id')->on('company')->onDelete('cascade');
             $table->string('lastname');
-            $table->string('surname');
+            $table->string('firstname');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->timestamps();
