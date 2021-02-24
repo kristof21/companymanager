@@ -80,7 +80,7 @@
                         <th>Phone</th>
                         @if (Auth::check())
                             <th>Edit</th>
-                            <th>Remove</th>
+                            <th>Delete</th>
                         @endif
                     </tr>
                     </thead>

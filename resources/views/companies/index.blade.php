@@ -23,7 +23,7 @@
                         <th>Website</th>
                         <th>Number of employees</th>
                         @if (Auth::check())
-                            <th>Remove</th>
+                            <th>Delete</th>
                         @endif
                     </tr>
                     </thead>
