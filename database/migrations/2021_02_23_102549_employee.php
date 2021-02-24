@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Employe extends Migration
+class Employee extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class Employe extends Migration
      */
     public function up()
     {
-        Schema::create('employe', function (Blueprint $table) {
+        Schema::create('employee', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('company_id');
             $table->index('company_id');

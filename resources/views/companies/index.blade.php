@@ -46,7 +46,7 @@
                                 <td class="align-middle">
                                     {{ Form::open(array('url' => 'companies/remove/' . $value->id, 'class' => 'pull-right')) }}
                                     {{ Form::hidden('_method', 'DELETE') }}
-                                    {{ Form::submit('DELETE', array('class' => 'btn btn-danger')) }}
+                                    {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                                     {{ Form::close() }}
                                 </td>
                             @endif

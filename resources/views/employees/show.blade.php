@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Single Employe')
+@section('title', 'Single Employee')
 
 @section('content')
 
@@ -25,15 +25,15 @@
         <div class="row">
             <div class="col-md">
                 <div class="text-justify-center">
-                    {{ Form::open(array('url' => 'employee/edit/' . $employe->id, 'class' => 'pull-right', 'method' => 'PUT')) }}
+                    {{ Form::open(array('url' => 'employee/edit/' . $employee->id, 'class' => 'pull-right', 'method' => 'PUT')) }}
 
                     <div class="form-group">
-                        {{ Form::label('surname', 'Surname:') }}
-                        {{ Form::text('surname', "$employe->surname", array('class' => 'form-control')) }}
+                        {{ Form::label('firstname', 'First name:') }}
+                        {{ Form::text('firstname', "$employee->firstname", array('class' => 'form-control')) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::label('lastname', 'Lastname:') }}
-                        {{ Form::text('lastname', "$employe->lastname", array('class' => 'form-control')) }}
+                        {{ Form::label('lastname', 'Last name:') }}
+                        {{ Form::text('lastname', "$employee->lastname", array('class' => 'form-control')) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('company', 'Company:') }}
@@ -41,15 +41,15 @@
                     </div>
                     <div class="form-group">
                         {{ Form::label('email', 'E-Mail Address:') }}
-                        {{ Form::text('email', "$employe->email", array('class' => 'form-control')) }}
+                        {{ Form::text('email', "$employee->email", array('class' => 'form-control')) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('phone', 'Phone:') }}
-                        {{ Form::text('phone', "$employe->phone", array('class' => 'form-control')) }}
+                        {{ Form::text('phone', "$employee->phone", array('class' => 'form-control')) }}
                     </div>
                         <div class="form-group">
                         </div>
-                        {{ Form::submit('Edit', array('class' => 'btn btn-success')) }}
+                        {{ Form::submit('Edit', array('class' => 'btn btn-info')) }}
                     {{ Form::close() }}
                 </div>
             </div>

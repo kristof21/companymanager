@@ -8,14 +8,14 @@ use Validator;
 use Redirect;
 use Session;
 use File;
-use App\Models\Employe;
+use App\Models\Employee;
 
 class CompaniesController extends Controller
 {
 
     //Index view
     public function index(){
-        $companies = Company::withCount('employe')->get();
+        $companies = Company::withCount('employee')->get();
         return view('companies.index')
             ->with('companies', $companies);
     }
@@ -56,7 +56,7 @@ class CompaniesController extends Controller
         $company = Company::find($id);
         //Accessing from url with invalid id
         if ($company !== null) {
-            $employee = Employe::where('company_id', $id)->get();
+            $employee = Employee::where('company_id', $id)->get();
             return view('companies.show')
                 ->with('company', $company)
                 ->with('employee', $employee);

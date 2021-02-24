@@ -65,7 +65,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('companies.create') }}">Add a company</a>
-                                    <a class="dropdown-item" href="{{ route('employee.create') }}">Add an employe</a>
+                                    <a class="dropdown-item" href="{{ route('employee.create') }}">Add an employee</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">

@@ -52,13 +52,13 @@
                             {{ Form::label('logo', 'Logo:') }}
                             {{ Form::file('logo', array('class' => 'file-upload','disabled' =>'disabled')) }}
                         </div>
-                        {{ Form::button('Edit', array('class' => 'btn btn-primary d-inline-block', 'id' => "edit-company")) }}
+                        {{ Form::button('Edit', array('class' => 'btn btn-info d-inline-block', 'id' => "edit-company")) }}
                         {{ Form::submit('Save', array('class' => 'btn btn-success d-none save')) }}
 
                         {{ Form::close() }}
                         {{ Form::open(array('url' => 'companies/removeLogo/' . $company->id)) }}
                         {{ Form::hidden('_method', 'POST') }}
-                        {{ Form::submit('Remove logo', array('class' => 'btn btn-danger mt-2')) }}
+                        {{ Form::submit('Remove logo', array('class' => 'btn btn-danger mt-2 remove-logo d-none')) }}
                         {{ Form::close() }}
                     @endif
                 </div>
@@ -74,12 +74,12 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Surname</th>
-                        <th>Lastname</th>
+                        <th>First name</th>
+                        <th>Last name</th>
                         <th>Email</th>
                         <th>Phone</th>
                         @if (Auth::check())
-                            <th>Show</th>
+                            <th>Edit</th>
                             <th>Remove</th>
                         @endif
                     </tr>
@@ -87,7 +87,7 @@
                     <tbody>
                     @foreach($employee as $key => $value)
                         <tr>
-                            <td>{{$value->surname}}</td>
+                            <td>{{$value->firstname}}</td>
                             <td>{{$value->lastname}}</td>
                             <td>{{$value->email}}</td>
                             <td>{{$value->phone}}</td>
@@ -95,7 +95,7 @@
                                 <td>
                                     {{ Form::open(array('url' => 'employee/show/' . $value->id)) }}
                                     {{ Form::hidden('_method', 'GET') }}
-                                    {{ Form::submit('Show', array('class' => 'btn btn-info')) }}
+                                    {{ Form::submit('Edit', array('class' => 'btn btn-info')) }}
                                     {{ Form::close() }}
                                 </td>
                                 <td>

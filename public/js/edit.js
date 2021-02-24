@@ -3,5 +3,6 @@ $(document).ready(function() {
         $('input[type=text]').removeAttr('readonly');
         $( ".save" ).removeClass( "d-none" );
         $(".file-upload").removeAttr('disabled');
+        $(".remove-logo").removeClass( "d-none" );
     });
 });

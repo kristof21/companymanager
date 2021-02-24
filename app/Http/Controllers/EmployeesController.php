@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
-use App\Models\Employe;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Validator;
 use Redirect;
@@ -12,7 +12,7 @@ use Session;
 
 class EmployeesController extends Controller
 {
-    //Create employe view
+    //Create employee view
     public function create(){
         $company = Company::pluck('name', 'id');
         if($company->count() > 0) {
@@ -24,12 +24,12 @@ class EmployeesController extends Controller
         }
 
     }
-    //Store new employe
+    //Store new employee
     public function store(Request $request){
-        $employee = new Employe;
+        $employee = new Employee;
         $rules = array(
             'lastname' => ['required', 'string', 'max:25'],
-            'surname' => ['required', 'string', 'max:25'],
+            'firstname' => ['required', 'string', 'max:25'],
             'company' => 'required',
             'email' => ['nullable', 'email'],
             'phone' => ['nullable', 'string', 'max:16']
@@ -41,33 +41,33 @@ class EmployeesController extends Controller
                 ->withRequest($request->except('logo'));
         } else {
             $employee->lastname = $request->get('lastname');
-            $employee->surname = $request->get('surname');
+            $employee->firstname = $request->get('firstname');
             $employee->email = $request->get('email');
             $employee->phone = $request->get('phone');
             $employee->company_id = $request->get('company');
             $employee->save();
-            Session::flash('message', 'Successfully added an employe!');
+            Session::flash('message', 'Successfully added an employee!');
             return Redirect::to('employee/create');
         }
     }
     //Sinlge employe where you can edit it
     public function show($id){
         $company = Company::pluck('name', 'id');
-        $employe = Employe::find($id);
+        $employee = Employee::find($id);
         //Acessing from url with invalid id
-        if ($employe !== null) {
+        if ($employee !== null) {
             return view('employees.show')
-                ->with('employe', $employe)
+                ->with('employee', $employee)
                 ->with('company', $company);
         }else{
             abort(404);
         }
     }
-    //Edit employe
+    //Edit employee
     public function edit(Request $request, $id){
         $rules = array(
             'lastname' => ['required', 'string', 'max:25'],
-            'surname' => ['required', 'string', 'max:25'],
+            'firstname' => ['required', 'string', 'max:25'],
             'company' => 'required',
             'email' => ['nullable', 'email'],
             'phone' => ['nullable', 'string', 'max:16']
@@ -78,9 +78,9 @@ class EmployeesController extends Controller
                 ->withErrors($validator)
                 ->withRequest($request->all());
         } else {
-            $employee = Employe::find($id);
+            $employee = Employee::find($id);
             $employee->lastname = $request->get('lastname');
-            $employee->surname = $request->get('surname');
+            $employee->firstname = $request->get('firstname');
             $employee->email = $request->get('email');
             $employee->phone = $request->get('phone');
 
@@ -89,12 +89,12 @@ class EmployeesController extends Controller
             return Redirect::to('employee/show/' . $id);
         }
     }
-    //Remove Employe
+    //Remove Employee
     public function remove($id){
-        $employe = Employe::find($id);
-        $employe->delete();
-        Session::flash('message', 'Successfully removed an employe!');
-        return Redirect::to('companies/show/'. $employe->company_id);
+        $employee = Employee::find($id);
+        $employee->delete();
+        Session::flash('message', 'Successfully removed an employee!');
+        return Redirect::to('companies/show/'. $employee->company_id);
     }
 
 

@@ -24,11 +24,11 @@
                     {{ Form::open(array('url' => 'employee/store')) }}
 
                     <div class="form-group">
-                        {{ Form::label('surname', 'Surname:') }}
-                        {{ Form::text('surname', '', array('class' => 'form-control')) }}
+                        {{ Form::label('firstname', 'First name:') }}
+                        {{ Form::text('firstname', '', array('class' => 'form-control')) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::label('lastname', 'Lastname:') }}
+                        {{ Form::label('lastname', 'Last name:') }}
                         {{ Form::text('lastname', '', array('class' => 'form-control')) }}
                     </div>
 

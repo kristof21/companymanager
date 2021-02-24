@@ -10,8 +10,8 @@ class Company extends Model
     public $table = 'company';
     use HasFactory;
 
-    public function employe(){
-        return $this->hasMany(Employe::class);
+    public function employee(){
+        return $this->hasMany(Employee::class);
     }
 
 }
