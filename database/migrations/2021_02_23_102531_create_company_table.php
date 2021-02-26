@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Employee extends Migration
+class Company extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class Employee extends Migration
      */
     public function up()
     {
-        Schema::create('employee', function (Blueprint $table) {
+        Schema::create('company', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id');
-            $table->index('company_id');
-            $table->foreign('company_id')->references('id')->on('company')->onDelete('cascade');
-            $table->string('lastname');
-            $table->string('firstname');
+            $table->string('name');
             $table->string('email')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('website')->nullable();
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class Employee extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('company');
     }
 }
