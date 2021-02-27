@@ -26,12 +26,12 @@
         <div class="row">
             <div class="col-md">
                 @if(!is_null($company->logo))
-                <img class="float-right" width="300px" height="auto" src="{{url('storage/' . $company->logo )}}">
+                <img class="float-right" width="300px" height="auto" src="{{asset('storage/' . $company->logo )}}">
                 @endif
             </div>
             <div class="col-md">
                 <div class="text-justify-center">
-                    <form action="{{route('companies.edit', ['id' => $company->id])}}" enctype="multipart/form-data" method="post" class="pull-right">
+                    <form action="{{route('companies.edit', ['company' => $company->id])}}" enctype="multipart/form-data" method="post" class="pull-right">
                         <div class="form-group">
                             <label name="name">Name of the Company:</label>
                             <input type="text" name="name" value="{{$company->name}}" readonly="true" class="form-control">
@@ -53,7 +53,7 @@
                         @method('put')
                         @csrf
                     </form>
-                    <form method="POST" action="{{route('companies.removeLogo', ['id' => $company->id])}}">
+                    <form method="POST" action="{{route('companies.removeLogo', ['company' => $company->id])}}">
                         <input type="submit" value="Remove logo" class="btn btn-danger mt-2 remove-logo d-none">
                         @csrf
                     </form>
@@ -89,11 +89,11 @@
                             @if (Auth::check())
                                 <td>
                                     <span class="form-inline justify-content-center">
-                                        <form action="{{route('employee.show', ['id' => $value->id])}}" method="GET">
+                                        <form action="{{route('employee.show', ['employee' => $value->id])}}" method="GET">
                                             <input type="submit" value="Edit" class="btn btn-info">
                                         </form>
                                         /
-                                        <form action="{{route('employee.remove', ['id' => $value->id])}}" method="POST">
+                                        <form action="{{route('employee.remove', ['employee' => $value->id])}}" method="POST">
                                             <input type="submit" value="Delete" class="btn btn-danger">
                                             @method('DELETE')
                                             @csrf

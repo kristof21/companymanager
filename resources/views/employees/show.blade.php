@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-md">
                 <div class="text-justify-center">
-                    <form action="{{route('employee.edit', ['id' => $employee->id])}}" method="post">
+                    <form action="{{route('employee.edit', ['employee' => $employee->id])}}" method="post">
                         <div class="form-group">
                             <label name="firstname">First name:</label>
                             <input type="text" name="firstname" value="{{$employee->firstname}}" class="form-control">
@@ -36,9 +36,9 @@
                         </div>
                         <div class="form-group">
                             <label name="company">Company:</label>
-                            <select name="company" class="form-control">
+                            <select name="company_id" class="form-control">
                                 @foreach($company as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
+                                    <option name="company_id" value="{{$key}}">{{$value}}</option>
                                 @endforeach
                             </select>
                         </div>

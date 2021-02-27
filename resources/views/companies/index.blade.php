@@ -32,10 +32,10 @@
                         <tr>
                             <td class="align-middle">
                                 @if(!is_null($value->logo))
-                                    <img src="{{url('storage/' . $value->logo )}}" height="auto" width="100">
+                                    <img src="{{asset('storage/' . $value->logo )}}" height="auto" width="100">
                                 @endif
                                 @if (Auth::check())
-                                    <a href="{{ route('companies.show', ['id' => $value->id]) }}">{{$value->name}}</a></td>
+                                    <a href="{{ route('companies.show', ['company' => $value->id]) }}">{{$value->name}}</a></td>
                                 @else
                                     {{$value->name}}</td>
                                 @endif
@@ -44,7 +44,7 @@
                             <td class="align-middle">{{$value->employee_count}}</td>
                             @if (Auth::check())
                                 <td class="align-middle">
-                                    <form method="post" action="{{route('companies.remove', ['id' => $value->id])}}" >
+                                    <form method="post" action="{{route('companies.remove', ['company' => $value->id])}}" >
                                         <input type="submit" value="Delete" class="btn btn-danger">
                                         @method('delete')
                                         @csrf

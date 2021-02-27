@@ -32,9 +32,9 @@
                         </div>
                         <div class="form-group">
                             <label name="company">Company:</label>
-                            <select name="company" class="form-control">
+                            <select name="company_id" class="form-control">
                                 @foreach($company as $key => $value)
-                                    <option value="{{$key}}">{{$value}}</option>
+                                    <option name="company_id" value="{{$key}}">{{$value}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="form-group">
                             <label name="phone">Phone:</label>
-                            <input type="text" name="phone" class="form-control">
+                            <input type="text" name="phonee" class="form-control">
                         </div>
                         <input type="submit" class="btn btn-primary">
                         @csrf

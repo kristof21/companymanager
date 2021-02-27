@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Validator;
@@ -12,7 +13,11 @@ use App\Models\Employee;
 
 class CompaniesController extends Controller
 {
+    protected $companyService;
 
+    public function __construct(CompaniesService $companiesService){
+    $this->companyService = $companiesService;
+    }
     //Index view
     public function index(){
         $companies = Company::withCount('employee')->get();
@@ -25,93 +30,31 @@ class CompaniesController extends Controller
     }
     //Adding company to database
     public function store(Request $request){
-        $rules = array(
-            'name' => 'required',
-            'email' => ['nullable', 'email'],
-            'website' => ['nullable', 'url'],
-            'logo' => ['nullable', 'image']
-        );
-        $validator = Validator::make($request->all(), $rules);
-        if($validator->fails()){
-            return Redirect::to('companies/create')
-                ->withErrors($validator)
-                ->withRequest($request->except('logo'));
-        } else{
-            $company = new Company();
-            $company->name = $request->get('name');
-            $company->email = $request->get('email');
-            $company->website = $request->get('website');
-            if($request->logo != '') {
-                $imagePath = $request->logo->store('uploads', 'public');
-                $company->logo = $imagePath;
-            }
-            $company->save();
-            Session::flash('message', 'Successfully added a company!');
-            return Redirect::to('companies/create');
-        }
-
+        $this->companyService->storeService($request);
     }
     //Single company with employee-s view
-    public function show($id){
-        $company = Company::find($id);
-        //Accessing from url with invalid id
-        if ($company !== null) {
-            $employee = Employee::where('company_id', $id)->get();
+    public function show(Company $company){
+            $employee = Employee::where('company_id', $company->id)->get();
             return view('companies.show')
                 ->with('company', $company)
                 ->with('employee', $employee);
-        }else{
-            abort(404);
-        }
     }
     //Editing a company
-    public function edit(Request $request,$id){
-        $rules = array(
-            'name' => 'required',
-            'email' => ['nullable', 'email'],
-            'website' => ['nullable', 'url'],
-            'logo' => ['nullable', 'image']
-        );
-        $validator = Validator::make($request->all(), $rules);
-        if($validator->fails()){
-            return Redirect::to('companies/show/'. $id)
-                ->withErrors($validator)
-                ->withRequest($request->except('logo'));
-        } else {
-            $company = Company::find($id);
-            $company->name = $request->get('name');
-            $company->email = $request->get('email');
-            $company->website = $request->get('website');
-            if ($request->logo != '') {
-                $image_path = "storage/" . $company['logo'];  // Value is not URL but directory file path
-                if(File::exists($image_path)) {
-                    File::delete($image_path);
-                }
-                $imagePath = $request->logo->store('uploads', 'public');
-                $company->logo = $imagePath;
-            }else{
-            }
-            $company->save();
-            Session::flash('message', 'Successfully edited a company!');
-            return Redirect::to('companies/show/'. $id);
-        }
-
+    public function edit(Request $request, Company $company){
+        $this->companyService->editService($request, $company);
     }
     //Removing a company with all of its employees
-    public function remove($id){
-        $company = Company::find($id);
+    public function remove(Company $company){
         $image_path = "storage/" . $company['logo'];  // Value is not URL but directory file path
-        var_dump($image_path);
         if(File::exists($image_path)) {
             File::delete($image_path);
         }
         $company->delete();
         Session::flash('message', 'Successfully removed a company!');
-        return Redirect::to('companies');
+        return redirect(route('companies.index'))->send();
 
     }
-    public function removeLogo($id){
-        $company = Company::find($id);
+    public function removeLogo(Company $company){
         $image_path = "storage/" . $company['logo'];  // Value is not URL but directory file path
         if(File::exists($image_path)) {
             File::delete($image_path);
@@ -119,7 +62,7 @@ class CompaniesController extends Controller
         $company->logo = null;
         $company->save();
         Session::flash('message', 'Successfully removed the logo!');
-        return Redirect::to('companies/show/'. $id);
+        return Redirect::to('companies/show/'. $company->id);
     }
 
 }
