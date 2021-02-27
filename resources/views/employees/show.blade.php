@@ -25,32 +25,35 @@
         <div class="row">
             <div class="col-md">
                 <div class="text-justify-center">
-                    {{ Form::open(array('url' => 'employee/edit/' . $employee->id, 'class' => 'pull-right', 'method' => 'PUT')) }}
-
-                    <div class="form-group">
-                        {{ Form::label('firstname', 'First name:') }}
-                        {{ Form::text('firstname', "$employee->firstname", array('class' => 'form-control')) }}
-                    </div>
-                    <div class="form-group">
-                        {{ Form::label('lastname', 'Last name:') }}
-                        {{ Form::text('lastname', "$employee->lastname", array('class' => 'form-control')) }}
-                    </div>
-                    <div class="form-group">
-                        {{ Form::label('company', 'Company:') }}
-                        {{ Form::select('company', $company, null, array('class' => 'form-control')) }}
-                    </div>
-                    <div class="form-group">
-                        {{ Form::label('email', 'E-Mail Address:') }}
-                        {{ Form::text('email', "$employee->email", array('class' => 'form-control')) }}
-                    </div>
-                    <div class="form-group">
-                        {{ Form::label('phone', 'Phone:') }}
-                        {{ Form::text('phone', "$employee->phone", array('class' => 'form-control')) }}
-                    </div>
+                    <form action="{{route('employee.edit', ['id' => $employee->id])}}" method="post">
                         <div class="form-group">
+                            <label name="firstname">First name:</label>
+                            <input type="text" name="firstname" value="{{$employee->firstname}}" class="form-control">
                         </div>
-                        {{ Form::submit('Edit', array('class' => 'btn btn-info')) }}
-                    {{ Form::close() }}
+                        <div class="form-group">
+                            <label name="lastname">Last name:</label>
+                            <input type="text" name="lastname" value="{{$employee->lastname}}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label name="company">Company:</label>
+                            <select name="company" class="form-control">
+                                @foreach($company as $key => $value)
+                                    <option value="{{$key}}">{{$value}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label name="email">E-Mail address:</label>
+                            <input type="text" name="email" value="{{$employee->email}}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label name="phone">Phone:</label>
+                            <input type="text" name="phone" value="{{$employee->phone}}" class="form-control">
+                        </div>
+                        <input type="submit" value="Edit" class="btn btn-info">
+                        @method('PUT')
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>

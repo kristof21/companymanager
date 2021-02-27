@@ -21,34 +21,34 @@
                     </div>
                 @endif
                 <div class="text-justify-center">
-                    {{ Form::open(array('url' => 'employee/store')) }}
-
-                    <div class="form-group">
-                        {{ Form::label('firstname', 'First name:') }}
-                        {{ Form::text('firstname', '', array('class' => 'form-control')) }}
-                    </div>
-                    <div class="form-group">
-                        {{ Form::label('lastname', 'Last name:') }}
-                        {{ Form::text('lastname', '', array('class' => 'form-control')) }}
-                    </div>
-
-                    <div class="form-group">
-                    {{ Form::label('company', 'Company:') }}
-                    {{ Form::select('company', $company, null, array('class' => 'form-control')) }}
-                    </div>
-
-                    <div class="form-group">
-                        {{ Form::label('email', 'Email:') }}
-                        {{ Form::text('email', '', array('class' => 'form-control')) }}
-                    </div>
-                    <div class="form-group">
-                        {{ Form::label('phone', 'Phone:') }}
-                        {{ Form::text('phone', '', array('class' => 'form-control')) }}
-                    </div>
-
-                    {{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
-
-                    {{ Form::close() }}
+                    <form action="{{route('employee.store')}}" method="POST">
+                        <div class="form-group">
+                            <label name="firstname">First name:</label>
+                            <input type="text" name="firstname" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label name="lastname">Last name:</label>
+                            <input type="text" name="lastname" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label name="company">Company:</label>
+                            <select name="company" class="form-control">
+                                @foreach($company as $key => $value)
+                                    <option value="{{$key}}">{{$value}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label name="email">Email:</label>
+                            <input type="text" name="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label name="phone">Phone:</label>
+                            <input type="text" name="phone" class="form-control">
+                        </div>
+                        <input type="submit" class="btn btn-primary">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>

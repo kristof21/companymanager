@@ -21,30 +21,26 @@
             </div>
             @endif
             <div class="text-justify-center">
-                {{ Form::open(array('url' => 'companies/store', 'enctype' => 'multipart/form-data')) }}
-
-                <div class="form-group">
-                    {{ Form::label('name', 'Name of the Company:') }}
-                    {{ Form::text('name', '', array('class' => 'form-control')) }}
-                </div>
-
-                <div class="form-group">
-                    {{ Form::label('email', 'E-Mail Address:') }}
-                    {{ Form::text('email', '', array('class' => 'form-control')) }}
-                </div>
-
-                <div class="form-group">
-                    {{ Form::label('website', 'Name of the Website:') }}
-                    {{ Form::text('website', '', array('class' => 'form-control')) }}
-                </div>
-                <div class="form-group">
-                    {{ Form::label('logo', 'Logo:') }}
-                    {{ Form::file('logo', array('name' => 'logo', 'id' => 'logo', 'class' => 'form-control-file')) }}
-                </div>
-
-                {{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
-
-                {{ Form::close() }}
+                <form enctype="multipart/form-data" method="POST" action="{{route('companies.store')}}">
+                    <div class="form-group">
+                        <label name="name">Name of the Company</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label name="email">E-mail Adress:</label>
+                        <input type="text" name="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label name="website">Name of the Website:</label>
+                        <input type="text" name="website" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label name="logo">Logo:</label>
+                        <input type="file" name="logo" id="logo" class="form-control-file">
+                    </div>
+                    <input type="submit" placeholder="Add" class="btn btn-primary">
+                    @csrf
+                </form>
             </div>
         </div>
     </div>

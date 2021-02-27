@@ -31,36 +31,32 @@
             </div>
             <div class="col-md">
                 <div class="text-justify-center">
-                    {{ Form::open(array('url' => 'companies/edit/' . $company->id, 'class' => 'pull-right', 'method' => 'PUT', 'enctype' => 'multipart/form-data')) }}
-
-                    <div class="form-group">
-                        {{ Form::label('name', 'Name of the Company:') }}
-                        {{ Form::text('name', "$company->name", array('class' => 'form-control', 'readonly' => 'true')) }}
-                    </div>
-
-                    <div class="form-group">
-                        {{ Form::label('email', 'E-Mail Address:') }}
-                        {{ Form::text('email', "$company->email", array('class' => 'form-control', 'readonly' => 'true')) }}
-                    </div>
-
-                    <div class="form-group">
-                        {{ Form::label('website', 'Name of the Website:') }}
-                        {{ Form::text('website', "$company->website", array('class' => 'form-control', 'readonly' => 'true')) }}
-                    </div>
-                    @if (Auth::check())
+                    <form action="{{route('companies.edit', ['id' => $company->id])}}" enctype="multipart/form-data" method="post" class="pull-right">
                         <div class="form-group">
-                            {{ Form::label('logo', 'Logo:') }}
-                            {{ Form::file('logo', array('class' => 'file-upload','disabled' =>'disabled')) }}
+                            <label name="name">Name of the Company:</label>
+                            <input type="text" name="name" value="{{$company->name}}" readonly="true" class="form-control">
                         </div>
-                        {{ Form::button('Edit', array('class' => 'btn btn-info d-inline-block', 'id' => "edit-company")) }}
-                        {{ Form::submit('Save', array('class' => 'btn btn-success d-none save')) }}
-
-                        {{ Form::close() }}
-                        {{ Form::open(array('url' => 'companies/removeLogo/' . $company->id)) }}
-                        {{ Form::hidden('_method', 'POST') }}
-                        {{ Form::submit('Remove logo', array('class' => 'btn btn-danger mt-2 remove-logo d-none')) }}
-                        {{ Form::close() }}
-                    @endif
+                        <div class="form-group">
+                            <label name="email">E-mail address:</label>
+                            <input type="text" name="email" value="{{$company->email}}" readonly="true" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label name="website">Name of the Website:</label>
+                            <input type="text" name="website" value="{{$company->website}}" readonly="true" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label name="logo">Logo:</label>
+                            <input type="file" name="logo" disabled="disabled" class="file-upload">
+                        </div>
+                        <button type="button" name="Edit" class="btn btn-info d-inline-block" id="edit-company">Edit</button>
+                        <input type="submit" value="Save" class="btn btn-success d-none save">
+                        @method('put')
+                        @csrf
+                    </form>
+                    <form method="POST" action="{{route('companies.removeLogo', ['id' => $company->id])}}">
+                        <input type="submit" value="Remove logo" class="btn btn-danger mt-2 remove-logo d-none">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>
@@ -71,7 +67,7 @@
         </div>
         <div class="row pt-4">
             <div class="col-md">
-                <table class="table table-striped">
+                <table class="table table-striped text-center">
                     <thead>
                     <tr>
                         <th>First name</th>
@@ -79,8 +75,7 @@
                         <th>Email</th>
                         <th>Phone</th>
                         @if (Auth::check())
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th>Actions</th>
                         @endif
                     </tr>
                     </thead>
@@ -93,16 +88,17 @@
                             <td>{{$value->phone}}</td>
                             @if (Auth::check())
                                 <td>
-                                    {{ Form::open(array('url' => 'employee/show/' . $value->id)) }}
-                                    {{ Form::hidden('_method', 'GET') }}
-                                    {{ Form::submit('Edit', array('class' => 'btn btn-info')) }}
-                                    {{ Form::close() }}
-                                </td>
-                                <td>
-                                    {{ Form::open(array('url' => 'employee/remove/' . $value->id)) }}
-                                    {{ Form::hidden('_method', 'DELETE') }}
-                                    {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                                    {{ Form::close() }}
+                                    <span class="form-inline justify-content-center">
+                                        <form action="{{route('employee.show', ['id' => $value->id])}}" method="GET">
+                                            <input type="submit" value="Edit" class="btn btn-info">
+                                        </form>
+                                        /
+                                        <form action="{{route('employee.remove', ['id' => $value->id])}}" method="POST">
+                                            <input type="submit" value="Delete" class="btn btn-danger">
+                                            @method('DELETE')
+                                            @csrf
+                                        </form>
+                                    </span>
                                 </td>
                             @endif
                         </tr>
