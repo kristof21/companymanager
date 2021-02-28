@@ -21,8 +21,7 @@ class CompaniesController extends Controller
     //Index view
     public function index(){
         $companies = Company::withCount('employee')->get();
-        return view('companies.index')
-            ->with('companies', $companies);
+        return view('companies.index', compact('companies'));
     }
     //Company create view
     public function create(){
@@ -35,9 +34,7 @@ class CompaniesController extends Controller
     //Single company with employee-s view
     public function show(Company $company){
             $employee = Employee::where('company_id', $company->id)->get();
-            return view('companies.show')
-                ->with('company', $company)
-                ->with('employee', $employee);
+            return view('companies.show', compact('company', 'employee'));
     }
     //Editing a company
     public function edit(Request $request, Company $company){
@@ -62,7 +59,7 @@ class CompaniesController extends Controller
         $company->logo = null;
         $company->save();
         Session::flash('message', 'Successfully removed the logo!');
-        return Redirect::to('companies/show/'. $company->id);
+        return redirect(route('companies.show', $company));
     }
 
 }

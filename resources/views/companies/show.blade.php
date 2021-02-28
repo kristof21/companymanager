@@ -108,5 +108,5 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="/js/edit.js"></script>
+
 @stop

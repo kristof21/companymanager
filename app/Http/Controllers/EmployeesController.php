@@ -22,8 +22,7 @@ class EmployeesController extends Controller
     public function create(){
         $company = Company::pluck('name', 'id');
         if($company->count() > 0) {
-            return view('employees.create')
-                ->with('company', $company);
+            return view('employees.create', compact('company'));
         }else{
             return redirect(route('companies/create'))
                 ->withErrors("First create a company");
@@ -37,9 +36,7 @@ class EmployeesController extends Controller
     //Sinlge employe where you can edit it
     public function show(Employee $employee){
         $company = Company::pluck('name', 'id');
-            return view('employees.show')
-                ->with('employee', $employee)
-                ->with('company', $company);
+            return view('employees.show', compact('company', 'employee'));
     }
     //Edit employee
     public function edit(Request $request, Employee $employee){
